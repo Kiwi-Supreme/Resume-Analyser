@@ -1,0 +1,340 @@
+{
+  "data": {
+    "resumes": 2481,
+    "train_resumes": 1984,
+    "test_resumes": 497,
+    "train_jds": 720,
+    "test_jds": 288,
+    "train_pairs": 28800,
+    "test_pairs": 11520,
+    "test_label_distribution": {
+      "0": 5868,
+      "1": 2119,
+      "2": 761,
+      "3": 2772
+    },
+    "taxonomy_size": 419,
+    "label_definition": "3 same category; 2 closely related; 1 same broad family; 0 unrelated. Weak labels derived from dataset categories; JDs are synthetic. 'Compatible' = relevance >= 2.",
+    "split": "resumes by candidate (80/20), JDs by id, JD skill pools disjoint between train/test"
+  },
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_comparison": {
+    "Baseline: keyword overlap": {
+      "roc_auc": 0.6935021887215465,
+      "pr_auc": 0.5001195902747444,
+      "brier": 0.206215308704408,
+      "ece": 0.12838920811130566,
+      "ndcg@5": 0.7030145909006923,
+      "ndcg@10": 0.6448632854293523,
+      "recall@10": 0.5065542901633588,
+      "precision@5": 0.7034722222222222
+    },
+    "Baseline: TF-IDF cosine": {
+      "roc_auc": 0.7691911860311075,
+      "pr_auc": 0.6477805714829576,
+      "brier": 0.2842592740320026,
+      "ece": 0.28271608339030835,
+      "ndcg@5": 0.6807573673100931,
+      "ndcg@10": 0.6427152550618214,
+      "recall@10": 0.5122552664066145,
+      "precision@5": 0.6826388888888889
+    },
+    "Baseline: embedding cosine": {
+      "roc_auc": 0.759357824282177,
+      "pr_auc": 0.6215542111411407,
+      "brier": 0.18642402633868385,
+      "ece": 0.10810822448305166,
+      "ndcg@5": 0.6726280314146711,
+      "ndcg@10": 0.6261237173363272,
+      "recall@10": 0.5020762932374452,
+      "precision@5": 0.6840277777777778
+    },
+    "Logistic Regression (all features)": {
+      "roc_auc": 0.8066533676238891,
+      "pr_auc": 0.6896450800920855,
+      "brier": 0.15385825664629935,
+      "ece": 0.01151529475950573,
+      "ndcg@5": 0.7106641020251737,
+      "ndcg@10": 0.6704116849809613,
+      "recall@10": 0.5352698834163294,
+      "precision@5": 0.7173611111111111
+    },
+    "LightGBM classifier (uncalibrated)": {
+      "roc_auc": 0.8052431188510369,
+      "pr_auc": 0.6897675588856969,
+      "brier": 0.1545948718132219,
+      "ece": 0.023312558917258714,
+      "ndcg@5": 0.7118814643994228,
+      "ndcg@10": 0.673811166579221,
+      "recall@10": 0.5403407707942021,
+      "precision@5": 0.7201388888888889
+    },
+    "LightGBM classifier (calibrated)": {
+      "roc_auc": 0.8040596928117446,
+      "pr_auc": 0.6715072935078436,
+      "brier": 0.15460308229857767,
+      "ece": 0.017656451584710083,
+      "ndcg@5": 0.7386311355480355,
+      "ndcg@10": 0.699435953354124,
+      "recall@10": 0.5594297210029441,
+      "precision@5": 0.7402777777777778
+    },
+    "LightGBM LambdaRank ranker": {
+      "roc_auc": 0.8019710666969404,
+      "pr_auc": 0.6891887702250299,
+      "brier": 0.2025688672040012,
+      "ece": 0.19125171641331667,
+      "ndcg@5": 0.7181923608869458,
+      "ndcg@10": 0.6769587379640329,
+      "recall@10": 0.5413330414479312,
+      "precision@5": 0.725
+    }
+  },
+  "calibration": {
+    "before": {
+      "roc_auc": 0.8052431188510369,
+      "pr_auc": 0.6897675588856969,
+      "brier": 0.1545948718132219,
+      "ece": 0.023312558917258714
+    },
+    "after": {
+      "roc_auc": 0.8040596928117446,
+      "pr_auc": 0.6715072935078436,
+      "brier": 0.15460308229857767,
+      "ece": 0.017656451584710083
+    }
+  },
+  "reliability_curve": [
+    {
+      "bin": "0.0-0.1",
+      "mean_predicted": 0.0647054947882921,
+      "observed_rate": 0.0809267965077233,
+      "n": 2978
+    },
+    {
+      "bin": "0.1-0.2",
+      "mean_predicted": 0.1601169377513734,
+      "observed_rate": 0.16082554517133957,
+      "n": 2568
+    },
+    {
+      "bin": "0.2-0.3",
+      "mean_predicted": 0.22926262071144138,
+      "observed_rate": 0.2477383437717467,
+      "n": 1437
+    },
+    {
+      "bin": "0.3-0.4",
+      "mean_predicted": 0.34068952808849345,
+      "observed_rate": 0.3584010840108401,
+      "n": 1476
+    },
+    {
+      "bin": "0.4-0.5",
+      "mean_predicted": 0.4354696343308866,
+      "observed_rate": 0.44343065693430656,
+      "n": 548
+    },
+    {
+      "bin": "0.5-0.6",
+      "mean_predicted": 0.5547522234084737,
+      "observed_rate": 0.5236363636363637,
+      "n": 825
+    },
+    {
+      "bin": "0.6-0.7",
+      "mean_predicted": 0.6244189242575914,
+      "observed_rate": 0.5968253968253968,
+      "n": 315
+    },
+    {
+      "bin": "0.7-0.8",
+      "mean_predicted": 0.7606593656310677,
+      "observed_rate": 0.7238805970149254,
+      "n": 536
+    },
+    {
+      "bin": "0.8-0.9",
+      "mean_predicted": 0.8806099346588101,
+      "observed_rate": 0.8104575163398693,
+      "n": 153
+    },
+    {
+      "bin": "0.9-1.0",
+      "mean_predicted": 0.9508944232178684,
+      "observed_rate": 0.9049707602339181,
+      "n": 684
+    }
+  ],
+  "ablation": {
+    "(none - full model)": {
+      "roc_auc": 0.8063748581538405,
+      "pr_auc": 0.6921343215282022,
+      "brier": 0.15410506160087975,
+      "ece": 0.02080197002684577,
+      "ndcg@10": 0.6769587379640329
+    },
+    "embedding": {
+      "roc_auc": 0.7788992911669972,
+      "pr_auc": 0.6522457962965176,
+      "brier": 0.1638677590922924,
+      "ece": 0.024365529252659876,
+      "ndcg@10": 0.6496162570682658
+    },
+    "tfidf": {
+      "roc_auc": 0.7894024719124138,
+      "pr_auc": 0.6583419889195777,
+      "brier": 0.16141472741550886,
+      "ece": 0.018000489734534032,
+      "ndcg@10": 0.6544468124293429
+    },
+    "skills": {
+      "roc_auc": 0.7945453996483317,
+      "pr_auc": 0.679802152639926,
+      "brier": 0.15776030969165342,
+      "ece": 0.023379571052256888,
+      "ndcg@10": 0.6639530240262546
+    },
+    "experience": {
+      "roc_auc": 0.8041765505515952,
+      "pr_auc": 0.6887435736366744,
+      "brier": 0.15501973457156448,
+      "ece": 0.020720153014143466,
+      "ndcg@10": 0.6757684696340802
+    },
+    "education": {
+      "roc_auc": 0.8031508603121736,
+      "pr_auc": 0.6914054041597029,
+      "brier": 0.15417273666321551,
+      "ece": 0.021688494895242154,
+      "ndcg@10": 0.6768064166790183
+    }
+  },
+  "feature_importance": {
+    "tfidf_cos": 0.5120735923558042,
+    "emb_cos": 0.19426112438484153,
+    "skill_jaccard": 0.06328772068352816,
+    "resume_skill_count": 0.054206162085303426,
+    "resume_years": 0.028561876039702463,
+    "skill_cov": 0.02575644464958994,
+    "exp_gap": 0.015841512324400585,
+    "job_years": 0.01559595133689377,
+    "exp_ratio": 0.015429640538051617,
+    "job_edu": 0.01499346415941155,
+    "skill_missing": 0.014831273086445263,
+    "resume_edu": 0.014807047200557638,
+    "req_skill_count": 0.014772819075144458,
+    "edu_gap": 0.013482283476361661,
+    "skill_matched": 0.0010866461423960658,
+    "edu_meets": 0.0009372570864003887,
+    "exp_meets": 7.518537516726189e-05
+  },
+  "error_analysis": {
+    "false_positive_rate": 0.09540503317891574,
+    "false_negative_rate": 0.5043872063402208,
+    "top_false_positives": [
+      [
+        "PUBLIC-RELATIONS resume vs ARTS job",
+        14
+      ],
+      [
+        "INFORMATION-TECHNOLOGY resume vs BPO job",
+        13
+      ],
+      [
+        "INFORMATION-TECHNOLOGY resume vs AUTOMOBILE job",
+        12
+      ],
+      [
+        "BUSINESS-DEVELOPMENT resume vs BANKING job",
+        12
+      ],
+      [
+        "INFORMATION-TECHNOLOGY resume vs CONSULTANT job",
+        12
+      ],
+      [
+        "CONSULTANT resume vs ACCOUNTANT job",
+        10
+      ],
+      [
+        "DIGITAL-MEDIA resume vs ARTS job",
+        10
+      ],
+      [
+        "ADVOCATE resume vs FITNESS job",
+        10
+      ]
+    ],
+    "top_false_negatives": [
+      [
+        "AGRICULTURE resume vs AGRICULTURE job",
+        94
+      ],
+      [
+        "APPAREL resume vs APPAREL job",
+        93
+      ],
+      [
+        "CONSULTANT resume vs CONSULTANT job",
+        84
+      ],
+      [
+        "HEALTHCARE resume vs HEALTHCARE job",
+        84
+      ],
+      [
+        "AVIATION resume vs AVIATION job",
+        79
+      ],
+      [
+        "ARTS resume vs ARTS job",
+        78
+      ],
+      [
+        "BANKING resume vs BANKING job",
+        74
+      ],
+      [
+        "FITNESS resume vs FITNESS job",
+        72
+      ]
+    ],
+    "mean_probability_by_relevance": {
+      "0": 0.20551274988314971,
+      "1": 0.24090805603073126,
+      "2": 0.3620689874312273,
+      "3": 0.5519741461385075
+    }
+  },
+  "bias_check": {
+    "method": "Prefix each of 120 test resumes with identity text (name / pronouns / birth year) and compare compatibility probabilities. Protected attributes are never model inputs.",
+    "variants": {
+      "female name": {
+        "mean_abs_change": 0.010303757128537464,
+        "max_abs_change": 0.12995743530842513,
+        "decision_flips": 2
+      },
+      "male name": {
+        "mean_abs_change": 0.009603571249705938,
+        "max_abs_change": 0.15617959701729334,
+        "decision_flips": 1
+      },
+      "south-asian name": {
+        "mean_abs_change": 0.007765986492889921,
+        "max_abs_change": 0.10888501742160278,
+        "decision_flips": 2
+      },
+      "east-asian name": {
+        "mean_abs_change": 0.005446544935925762,
+        "max_abs_change": 0.1065953654188948,
+        "decision_flips": 1
+      },
+      "older (born 1962)": {
+        "mean_abs_change": 0.005964594225595702,
+        "max_abs_change": 0.10888501742160278,
+        "decision_flips": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+flask
+scikit-learn
+pandas
+numpy
+scipy
+joblib
+pypdf
+python-docx
+matplotlib
+kagglehub
+lightgbm
+sentence-transformers

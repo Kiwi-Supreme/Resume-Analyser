@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ResumeMatch · ML Resume Screening</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand"><span class="logo">R</span> ResumeMatch</div>
+    <a href="#report" class="nav-link">Model report</a>
+  </nav>
+
+  <section class="hero">
+    <h1>Does your resume fit the job?</h1>
+    <p>Semantic embeddings and trained models score a resume against a job description, rank candidates, and explain every score.</p>
+  </section>
+
+  <main class="container">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="single" role="tab">Analyze one resume</button>
+      <button class="tab" data-tab="rank" role="tab">Rank candidates</button>
+    </div>
+
+    <!-- ============ SINGLE ============ -->
+    <div id="tab-single">
+      <form id="form" class="panel grid-2">
+        <div>
+          <h2><span class="step">1</span> Your resume</h2>
+          <label id="drop" class="drop" for="resume">
+            <input type="file" id="resume" accept=".pdf,.docx,.txt" hidden>
+            <div class="drop-icon">⬆</div>
+            <div id="drop-text"><strong>Click to upload</strong> or drag &amp; drop<br><span class="muted">PDF, DOCX or TXT · max 5 MB</span></div>
+          </label>
+        </div>
+        <div>
+          <h2><span class="step">2</span> Job description <span class="muted small">(optional)</span></h2>
+          <textarea id="jd" rows="7" placeholder="Paste the job description to get a match score…"></textarea>
+          <div class="samples">
+            <span class="muted small">Try a sample:</span>
+            <button type="button" class="link" data-sample="ds">Data Scientist</button>
+            <button type="button" class="link" data-sample="hr">HR Manager</button>
+            <button type="button" class="link" data-sample="it">Java Developer</button>
+            <button type="button" class="link" data-sample="fin">Finance Analyst</button>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit" id="submit" class="btn" disabled><span id="btn-text">Analyze resume</span><span class="spinner" hidden></span></button>
+          <p id="error" class="error" hidden></p>
+        </div>
+      </form>
+
+      <div id="results" hidden>
+        <div class="grid-2">
+          <section class="panel" id="match" hidden>
+            <h3>Compatibility score</h3>
+            <div class="gauge-wrap">
+              <div class="gauge" id="gauge"><div class="gauge-inner"><span id="score">0</span><small>%</small></div></div>
+              <div>
+                <div id="verdict" class="verdict"></div>
+                <div class="muted small">Calibrated probability that this resume fits the role</div>
+              </div>
+            </div>
+            <div id="dims" class="dims"></div>
+            <p class="note">Dimensions are measured values, not separate learned scores.</p>
+          </section>
+
+          <section class="panel">
+            <h3>Predicted role</h3>
+            <div id="top-cat" class="top-cat"></div>
+            <div id="categories"></div>
+            <p class="muted small" id="jd-category"></p>
+          </section>
+        </div>
+
+        <section class="panel" id="why" hidden>
+          <h3>Why this score?</h3>
+          <div class="grid-2 tight">
+            <div><h4 class="good">Helped the score</h4><ul id="why-pos" class="why"></ul></div>
+            <div><h4 class="bad">Hurt the score</h4><ul id="why-neg" class="why"></ul></div>
+          </div>
+          <p class="note">Contributions come from TreeSHAP on the trained LightGBM model (log-odds).</p>
+        </section>
+
+        <section class="panel">
+          <h3>What we read from your resume</h3>
+          <div class="facts" id="facts"></div>
+          <h4>Skills</h4>
+          <div id="resume-skills" class="chips"></div>
+
+          <div id="skill-compare" hidden>
+            <h3 class="spaced">Job requirements vs resume</h3>
+            <div class="facts" id="job-facts"></div>
+            <div class="chips" id="matched"></div>
+            <div class="chips" id="missing"></div>
+            <div id="kw-block">
+              <h4>Important job keywords not found in the resume</h4>
+              <div class="chips" id="keywords"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============ RANK ============ -->
+    <div id="tab-rank" hidden>
+      <form id="rank-form" class="panel grid-2">
+        <div>
+          <h2><span class="step">1</span> Candidate resumes</h2>
+          <label id="rank-drop" class="drop" for="rank-files">
+            <input type="file" id="rank-files" accept=".pdf,.docx,.txt" multiple hidden>
+            <div class="drop-icon">⬆</div>
+            <div id="rank-drop-text"><strong>Click to upload</strong> or drag &amp; drop<br><span class="muted">2–30 resumes · PDF, DOCX or TXT</span></div>
+          </label>
+        </div>
+        <div>
+          <h2><span class="step">2</span> Job description</h2>
+          <textarea id="rank-jd" rows="7" placeholder="Paste the job description candidates are ranked against…"></textarea>
+        </div>
+        <div class="actions">
+          <button type="submit" id="rank-submit" class="btn" disabled><span id="rank-btn-text">Rank candidates</span><span class="spinner" hidden></span></button>
+          <p id="rank-error" class="error" hidden></p>
+        </div>
+      </form>
+      <div id="rank-results" hidden>
+        <section class="panel">
+          <h3>Ranked candidates</h3>
+          <p class="muted small" id="rank-req"></p>
+          <div id="rank-list"></div>
+          <p class="note">Order comes from a LambdaRank model; the percentage is the calibrated compatibility probability.</p>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============ REPORT ============ -->
+    <section class="panel" id="report">
+      <h3>Model report</h3>
+      <div id="report-body" class="muted">Loading…</div>
+    </section>
+  </main>
+
+  <footer>Machine Learning project · Flask · scikit-learn · LightGBM · Sentence-Transformers</footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+{
+  "best_model": "Linear SVM",
+  "n_resumes": 2481,
+  "n_categories": 24,
+  "test_accuracy": 0.7142857142857143,
+  "test_f1_macro": 0.671618721915512,
+  "comparison": [
+    {
+      "model": "Logistic Regression",
+      "cv_f1_macro": 0.5987861119197256,
+      "cv_std": 0.02155305876582802,
+      "tuned_cv_f1_macro": 0.6123433592029535,
+      "best_params": {
+        "clf__C": "100",
+        "tfidf__ngram_range": "(1, 2)"
+      }
+    },
+    {
+      "model": "Linear SVM",
+      "cv_f1_macro": 0.6208175923742264,
+      "cv_std": 0.018643293893812016,
+      "tuned_cv_f1_macro": 0.6276517521135975,
+      "best_params": {
+        "clf__C": "2",
+        "tfidf__ngram_range": "(1, 2)"
+      }
+    },
+    {
+      "model": "Naive Bayes",
+      "cv_f1_macro": 0.47654227390824194,
+      "cv_std": 0.018649692508152245
+    },
+    {
+      "model": "Random Forest",
+      "cv_f1_macro": 0.6221876708246408,
+      "cv_std": 0.014589401551640471
+    },
+    {
+      "model": "KNN",
+      "cv_f1_macro": 0.48985527921079475,
+      "cv_std": 0.01040592715641148
+    }
+  ],
+  "per_class": {
+    "ACCOUNTANT": {
+      "precision": 0.7037037037037037,
+      "recall": 0.7916666666666666,
+      "f1-score": 0.7450980392156863,
+      "support": 24.0
+    },
+    "ADVOCATE": {
+      "precision": 0.46875,
+      "recall": 0.625,
+      "f1-score": 0.5357142857142857,
+      "support": 24.0
+    },
+    "AGRICULTURE": {
+      "precision": 0.8,
+      "recall": 0.6153846153846154,
+      "f1-score": 0.6956521739130435,
+      "support": 13.0
+    },
+    "APPAREL": {
+      "precision": 0.45454545454545453,
+      "recall": 0.2631578947368421,
+      "f1-score": 0.3333333333333333,
+      "support": 19.0
+    },
+    "ARTS": {
+      "precision": 0.6111111111111112,
+      "recall": 0.5238095238095238,
+      "f1-score": 0.5641025641025641,
+      "support": 21.0
+    },
+    "AUTOMOBILE": {
+      "precision": 1.0,
+      "recall": 0.2857142857142857,
+      "f1-score": 0.4444444444444444,
+      "support": 7.0
+    },
+    "AVIATION": {
+      "precision": 0.8636363636363636,
+      "recall": 0.8260869565217391,
+      "f1-score": 0.8444444444444444,
+      "support": 23.0
+    },
+    "BANKING": {
+      "precision": 0.7619047619047619,
+      "recall": 0.6956521739130435,
+      "f1-score": 0.7272727272727273,
+      "support": 23.0
+    },
+    "BPO": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4.0
+    },
+    "BUSINESS-DEVELOPMENT": {
+      "precision": 0.6363636363636364,
+      "recall": 0.875,
+      "f1-score": 0.7368421052631579,
+      "support": 24.0
+    },
+    "CHEF": {
+      "precision": 0.85,
+      "recall": 0.7083333333333334,
+      "f1-score": 0.7727272727272727,
+      "support": 24.0
+    },
+    "CONSTRUCTION": {
+      "precision": 0.72,
+      "recall": 0.8181818181818182,
+      "f1-score": 0.7659574468085106,
+      "support": 22.0
+    },
+    "CONSULTANT": {
+      "precision": 0.7692307692307693,
+      "recall": 0.43478260869565216,
+      "f1-score": 0.5555555555555556,
+      "support": 23.0
+    },
+    "DESIGNER": {
+      "precision": 0.8695652173913043,
+      "recall": 0.9523809523809523,
+      "f1-score": 0.9090909090909091,
+      "support": 21.0
+    },
+    "DIGITAL-MEDIA": {
+      "precision": 0.8,
+      "recall": 0.631578947368421,
+      "f1-score": 0.7058823529411765,
+      "support": 19.0
+    },
+    "ENGINEERING": {
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1-score": 0.75,
+      "support": 24.0
+    },
+    "FINANCE": {
+      "precision": 0.8636363636363636,
+      "recall": 0.7916666666666666,
+      "f1-score": 0.8260869565217391,
+      "support": 24.0
+    },
+    "FITNESS": {
+      "precision": 0.8333333333333334,
+      "recall": 0.8333333333333334,
+      "f1-score": 0.8333333333333334,
+      "support": 24.0
+    },
+    "HEALTHCARE": {
+      "precision": 0.6666666666666666,
+      "recall": 0.6956521739130435,
+      "f1-score": 0.6808510638297872,
+      "support": 23.0
+    },
+    "HR": {
+      "precision": 0.8076923076923077,
+      "recall": 0.9545454545454546,
+      "f1-score": 0.875,
+      "support": 22.0
+    },
+    "INFORMATION-TECHNOLOGY": {
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1-score": 0.8888888888888888,
+      "support": 24.0
+    },
+    "PUBLIC-RELATIONS": {
+      "precision": 0.6538461538461539,
+      "recall": 0.7727272727272727,
+      "f1-score": 0.7083333333333334,
+      "support": 22.0
+    },
+    "SALES": {
+      "precision": 0.44,
+      "recall": 0.4782608695652174,
+      "f1-score": 0.4583333333333333,
+      "support": 23.0
+    },
+    "TEACHER": {
+      "precision": 0.7272727272727273,
+      "recall": 0.8,
+      "f1-score": 0.7619047619047619,
+      "support": 20.0
+    }
+  },
+  "top_words": {}
+}

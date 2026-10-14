@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+data/*.csv
+data/*.npz
+app.log
+tm.log
+models/model.joblib
+models/compat.joblib
+models/match_tfidf.joblib
+static/_demo/
